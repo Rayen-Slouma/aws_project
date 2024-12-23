@@ -29,7 +29,7 @@ class Notes extends Component {
 
     populateData(){
         const owner = this.state.owner;
-        this.fetch_retry(`api/transaction/user/${owner}`, 3)
+        this.fetch_retry(`/api/transaction/user/${owner}`, 3)
         .then(res => res.json())
         .then((data) => {
             this.setState({ transactions : data.result });
@@ -69,7 +69,7 @@ class Notes extends Component {
             headers: {'Content-Type':'application/json'},
             body: JSON.stringify({"owner": owner})
         };
-        fetch('api/transaction/user', requestOptions)
+        fetch('/api/transaction/user', requestOptions)
         .then(response => response.json())
         .then(data => this.populateData())
 
@@ -88,7 +88,7 @@ class Notes extends Component {
             headers: {'Content-Type':'application/json'},
             body: JSON.stringify({"id" : this.state.id})
         };
-        fetch('api/transaction/id', requestOptions)
+        fetch('/api/transaction/id', requestOptions)
             .then(response => response.json())
             .then(data => this.populateData());
 
@@ -102,7 +102,7 @@ class Notes extends Component {
             body: JSON.stringify({"title": this.state.text_title, "desc": this.state.text_desc, "owner": this.state.owner })
         };
         
-        fetch('api/transaction', requestOptions)
+        fetch('/api/transaction', requestOptions)
         .then(response => response.json())
         .then(data => this.populateData());
         

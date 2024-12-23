@@ -28,7 +28,7 @@ class Register extends Component {
             body: JSON.stringify({"login": this.state.login, "password": this.state.password,"email": this.state.email})
         };
         
-        fetch('http://localhost:4000/register', requestOptions)
+        fetch('/api/register', requestOptions)
         .then(response => response.json())
         .then(data => {
             if (data.success) {

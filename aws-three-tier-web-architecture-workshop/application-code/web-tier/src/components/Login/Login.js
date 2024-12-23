@@ -29,7 +29,7 @@ class Login extends Component {
             body: JSON.stringify({"login": this.state.login, "password": this.state.password})
         };
         
-        fetch('api/login', requestOptions)
+        fetch('/api/login', requestOptions)
         .then(response => response.json())
         .then(data => {
             if (data.success) {
@@ -60,7 +60,7 @@ class Login extends Component {
             body: JSON.stringify({"login": this.state.login})
         };
 
-        fetch('api/forgot-password', requestOptions)
+        fetch('/api/forgot-password', requestOptions)
         .then(response => response.json())
         .then(data => {
             if (data.success) {
