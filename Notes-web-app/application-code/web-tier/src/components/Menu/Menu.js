@@ -1,9 +1,8 @@
+// Menu.js
 import React from 'react';
 import { bool } from 'prop-types';
 import { StyledMenu } from './Menu.styled';
-import {
-  Link
-} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Menu = ({ open, ...props }) => {
   const isHidden = open ? true : false;
@@ -11,33 +10,52 @@ const Menu = ({ open, ...props }) => {
   const isLoggedIn = JSON.parse(localStorage.getItem('isLoggedIn'));
 
   return (
-    <StyledMenu open={open} aria-hidden={!isHidden} {...props}>
-      <div>
+      <StyledMenu open={open} aria-hidden={!isHidden} {...props}>
         <nav>
           <ul>
             <li>
-              <Link to="/" tabIndex={tabIndex} style={{outline:"none",border:"none"}}><div style={{paddingBottom : "2em", float:"left"}}><span aria-hidden="true">🏠</span> Home</div></Link>
+              <Link to="/" tabIndex={tabIndex}>
+                <span role="img" aria-label="home">🏠</span>
+                Home
+              </Link>
             </li>
+
             {isLoggedIn && (
-              <li>
-              <Link to="/Notes" tabIndex={tabIndex} style={{outline:"none",border:"none"}}><div style={{paddingBottom : "2em", float:"left"}}><span aria-hidden="true">📋</span> My Notes</div></Link>
-            </li>
+                <li>
+                  <Link to="/Notes" tabIndex={tabIndex}>
+                    <span role="img" aria-label="notes">📋</span>
+                    My Notes
+                  </Link>
+                </li>
             )}
-            
+
             {!isLoggedIn && (
-              <li>
-                <Link to="/login" tabIndex={tabIndex} style={{outline:"none",border:"none"}}><div style={{paddingBottom : "2em", float:"left"}}><span aria-hidden="true">🔐</span> Login</div></Link>
-              </li>
+                <li>
+                  <Link to="/login" tabIndex={tabIndex}>
+                    <span role="img" aria-label="login">🔐</span>
+                    Login
+                  </Link>
+                </li>
             )}
+
             {isLoggedIn && (
-              <li>
-                <Link to="/" tabIndex={tabIndex} style={{outline:"none",border:"none"}} ><div style={{paddingBottom : "2em", float:"left"}} onClick={() => { localStorage.setItem('isLoggedIn', false); window.location.href = '/'; }}><span aria-hidden="true">🔓</span> Logout</div></Link>
-              </li>
+                <li>
+                  <Link
+                      to="/"
+                      tabIndex={tabIndex}
+                      onClick={() => {
+                        localStorage.setItem('isLoggedIn', false);
+                        window.location.href = '/';
+                      }}
+                  >
+                    <span role="img" aria-label="logout">🔓</span>
+                    Logout
+                  </Link>
+                </li>
             )}
           </ul>
         </nav>
-      </div>
-    </StyledMenu>
+      </StyledMenu>
   );
 }
 
