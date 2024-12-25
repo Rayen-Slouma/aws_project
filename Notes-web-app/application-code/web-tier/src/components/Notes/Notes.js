@@ -11,7 +11,7 @@ class Notes extends Component {
         this.handleButtonClick = this.handleButtonClick.bind(this);
         this.handleButtonClickDel = this.handleButtonClickDel.bind(this);
         this.handleButtonClickDelId = this.handleButtonClickDelId.bind(this);
-        this.state = { 
+        this.state = {
             transactions: [],
             text_title: "",
             text_desc:"",
@@ -20,6 +20,7 @@ class Notes extends Component {
         }
     }
 
+    // Keep all your existing methods exactly as they are
     componentDidMount() {
         const isLoggedIn = JSON.parse(localStorage.getItem('isLoggedIn'));
         if (isLoggedIn) {
@@ -30,21 +31,21 @@ class Notes extends Component {
     populateData(){
         const owner = this.state.owner;
         this.fetch_retry(`/api/transaction/user/${owner}`, 3)
-        .then(res => res.json())
-        .then((data) => {
-            this.setState({ transactions : data.result });
-            console.log("state set");
-            console.log(this.state.transactions);
-        })
-        .catch(console.log);
-    }  
+            .then(res => res.json())
+            .then((data) => {
+                this.setState({ transactions : data.result });
+                console.log("state set");
+                console.log(this.state.transactions);
+            })
+            .catch(console.log);
+    }
 
     async fetch_retry(url, n){
         try {
             return await fetch(url)
         } catch(err) {
             if (n === 1) throw err;
-            await new Promise(resolve => setTimeout(resolve, 1000)); 
+            await new Promise(resolve => setTimeout(resolve, 1000));
             return await this.fetch_retry(url, n - 1);
         }
     };
@@ -53,7 +54,7 @@ class Notes extends Component {
         return this.state.transactions.map((transaction, index) => {
             const { id, title, description} = transaction;
             return (
-                <tr key={id}>
+                <tr key={id} className="note-row">
                     <td>{id}</td>
                     <td>{title}</td>
                     <td>{description}</td>
@@ -70,8 +71,8 @@ class Notes extends Component {
             body: JSON.stringify({"owner": owner})
         };
         fetch('/api/transaction/user', requestOptions)
-        .then(response => response.json())
-        .then(data => this.populateData())
+            .then(response => response.json())
+            .then(data => this.populateData())
 
         this.setState({text_title : "", text_desc:"",transaction:[]});
     }
@@ -101,11 +102,11 @@ class Notes extends Component {
             headers: {'Content-Type':'application/json'},
             body: JSON.stringify({"title": this.state.text_title, "desc": this.state.text_desc, "owner": this.state.owner })
         };
-        
+
         fetch('/api/transaction', requestOptions)
-        .then(response => response.json())
-        .then(data => this.populateData());
-        
+            .then(response => response.json())
+            .then(data => this.populateData());
+
         this.setState({ text_title: "", text_desc: "" });
     }
 
@@ -116,60 +117,83 @@ class Notes extends Component {
     render () {
         const isLoggedIn = JSON.parse(localStorage.getItem('isLoggedIn'));
         return (
-            <div>
-                <h1 id='title' style={{paddingRight:"1em"}}>Welcome to your Notes</h1>
-                <input style={{
-                    float: "right", 
-                    marginBottom: "1em", 
-                    backgroundColor: "red", 
-                    color: "white", 
-                    border: "none", 
-                    padding: "10px 20px", 
-                    borderRadius: "5px", 
-                    cursor: "pointer"
-                }} type="button" value="Delete All" onClick={this.handleButtonClickDel} />
+            <div className="notes-container">
+                <div className="notes-header">
+                    <h1 id='title'>Welcome to your Notes</h1>
+                    <button
+                        className="delete-all-btn"
+                        onClick={this.handleButtonClickDel}
+                    >
+                        Delete All
+                    </button>
+                </div>
+
                 <table id='transactions'>
                     <tbody>
-                        <tr>
-                            <td>N°</td>
-                            <td>Title</td>
-                            <td>Description</td>
-                        </tr>
-                        <tr>
-                            <td><input type="button" value="ADD" onClick={this.handleButtonClick}/></td>
-                            <td><input type="text" name="text_title" value={this.state.text_title} onChange={this.handleTextChange} style={{
-                                height: "40px", 
-                                fontSize: "16px"
-                            }}/></td>
-                            <td><textarea name="text_desc" value={this.state.text_desc} onChange={this.handleTextChange} style={{
-                                height: "60px", 
-                                width: "300px", 
-                                fontSize: "16px"
-                            }}/></td>
-                            <td><input type="button" value="clear" style={{
-                                backgroundColor: "blue", 
-                                color: "white", 
-                                border: "none", 
-                                padding: "5px 10px", 
-                                borderRadius: "5px", 
-                                cursor: "pointer"
-                            }} onClick={() => this.setState({ text_title: "", text_desc: "" })} /></td>
-                        </tr>
-                        {isLoggedIn && this.renderTableData()}
-                        <tr>
-                            <td colSpan="1"><input type="text" name="id" placeholder="     Number of the Note " value={this.state.id} onChange={this.handleTextChange}></input></td>
-                            <td><input type="button" value="remove note" style={{
-                                backgroundColor: "crimson", 
-                                color: "white", 
-                                border: "none", 
-                                padding: "5px 10px", 
-                                borderRadius: "5px", 
-                                cursor: "pointer"
-                            }} onClick={this.handleButtonClickDelId}/></td>
-                        </tr>
+                    <tr className="table-header">
+                        <td>N°</td>
+                        <td>Title</td>
+                        <td>Description</td>
+                    </tr>
+                    <tr className="input-row">
+                        <td>
+                            <button
+                                className="add-btn"
+                                onClick={this.handleButtonClick}
+                            >
+                                ADD
+                            </button>
+                        </td>
+                        <td>
+                            <input
+                                type="text"
+                                name="text_title"
+                                value={this.state.text_title}
+                                onChange={this.handleTextChange}
+                                className="title-input"
+                                placeholder="Enter title..."
+                            />
+                        </td>
+                        <td>
+                                <textarea
+                                    name="text_desc"
+                                    value={this.state.text_desc}
+                                    onChange={this.handleTextChange}
+                                    className="desc-input"
+                                    placeholder="Enter description..."
+                                />
+                            <button
+                                className="clear-btn"
+                                onClick={() => this.setState({ text_title: "", text_desc: "" })}
+                            >
+                                Clear
+                            </button>
+                        </td>
+                    </tr>
+                    {isLoggedIn && this.renderTableData()}
+                    <tr className="delete-row">
+                        <td>
+                            <input
+                                type="text"
+                                name="id"
+                                value={this.state.id}
+                                onChange={this.handleTextChange}
+                                className="id-input"
+                                placeholder="Note number"
+                            />
+                        </td>
+                        <td colSpan="2">
+                            <button
+                                className="remove-btn"
+                                onClick={this.handleButtonClickDelId}
+                            >
+                                Remove Note
+                            </button>
+                        </td>
+                    </tr>
                     </tbody>
                 </table>
-                <ToastContainer />
+                <ToastContainer position="bottom-right" theme="dark" />
             </div>
         );
     }

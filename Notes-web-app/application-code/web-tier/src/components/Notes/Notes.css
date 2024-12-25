@@ -1,41 +1,129 @@
-#transactions {
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: larger;
-  border-collapse: collapse;
-  width: 100%;
+.notes-container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-#transactions td, #transactions th {
-  border: 1px solid rgb(9, 81, 187);
-  color: white;
-  padding: 8px;
+.notes-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
 }
 
 #title {
-  color: white
+  color: white;
+  margin: 0;
 }
 
-#colHeader td{
-  color:rgb(9, 81, 187);
+#transactions {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  overflow: hidden;
 }
 
-#transactions tr:nth-child(even){background-color: #0A0128;} 
-
-#transactions tr:hover {background-color:#221f2d;}
-
-#transactions th {
-  padding-top: 12px;
-  padding-bottom: 12px;
-  text-align: left;
-  background-color: #4CAF50;
+#transactions td {
+  border: 1px solid rgba(9, 81, 187, 0.2);
+  color: white;
+  padding: 1rem;
 }
 
-thead,
+.table-header td {
+  background: rgba(9, 81, 187, 0.2);
+  font-weight: bold;
+}
+
+.note-row:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* Inputs */
+.title-input, .desc-input, .id-input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  background: rgba(10, 1, 40, 0.7);
+  color: white;
+  font-size: 1rem;
+}
+
+.desc-input {
+  min-height: 100px;
+  resize: vertical;
+}
+
+/* Buttons */
+.add-btn, .clear-btn, .remove-btn, .delete-all-btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.add-btn {
+  background: rgb(9, 81, 187);
+  color: white;
+  width: 100%;
+}
+
+.add-btn:hover {
+  background: rgb(7, 71, 165);
+}
+
+.clear-btn {
+  background: #666;
+  color: white;
+  margin-top: 0.5rem;
+}
+
+.clear-btn:hover {
+  background: #555;
+}
+
+.remove-btn {
+  background: crimson;
+  color: white;
+  width: 100%;
+}
+
+.remove-btn:hover {
+  background: #a01031;
+}
+
+.delete-all-btn {
+  background: crimson;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.delete-all-btn:hover {
+  background: #a01031;
+}
+
 tbody {
-display: block;
+  display: block;
+  max-height: 600px;
+  overflow-y: auto;
 }
 
-tbody {
-height: 500px;
-overflow: auto;
+tbody::-webkit-scrollbar {
+  width: 8px;
+}
+
+tbody::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+tbody::-webkit-scrollbar-thumb {
+  background-color: rgba(9, 81, 187, 0.5);
+  border-radius: 4px;
 }

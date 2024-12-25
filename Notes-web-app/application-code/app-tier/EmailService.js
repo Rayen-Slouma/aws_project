@@ -4,8 +4,8 @@ const authService = require('./AuthService'); // Ensure AuthService is imported 
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: 'my.notes.app.service@gmail.com',
-        pass: '##helper' // Use an app-specific password if 2FA is enabled
+        user: 'email',
+        pass: 'password' // Use an app-specific password if 2FA is enabled
     }
 });
 

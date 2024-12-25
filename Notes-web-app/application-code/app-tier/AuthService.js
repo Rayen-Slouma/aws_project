@@ -94,11 +94,8 @@ const getUserByLogin = (login) => {
 };
 
 const decryptPassword = (hashedPassword) => {
-    // Since bcrypt is a one-way hashing algorithm, we cannot decrypt the password.
-    // Instead, we should store the plain text password securely and use it here.
-    // For demonstration purposes, we will assume the plain text password is stored in the database.
-    // In a real application, you should never store plain text passwords.
-    return hashedPassword; // This is just a placeholder. Replace it with the actual plain text password.
+    // This is just a placeholder. Replace it with the actual plain text password.
+    return "plain_text_password"; 
 };
 
 module.exports = {
